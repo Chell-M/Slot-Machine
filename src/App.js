@@ -1,11 +1,11 @@
 import './App.css';
-import SlotMachine from './Components/SlotMachine';
+import User from './Components/User';
 
 function App() {
 
   return (
     <div className="App">
-      <SlotMachine />
+      <User />
     </div>
   )
 }

@@ -1,40 +1,39 @@
 import React, { useState } from 'react'
 
-const SlotMachine = () => {
-
+const SlotMachine = ({ bet, spinOnClick }) => {
   const [reels, setReels] = useState([1, 2, 3])
+  const [payout, setPayout] = useState(0)
 
-  const getRandomIndex = (arr) => Math.floor(Math.random() * arr.length)
+
+  const getRandomIndex = () => Math.floor(Math.random() * 4)
 
   const reelsContainer = () => {
-    const reel1 = [1, 2, 3]
-    const reel2 = [2, 2, 3]
-    const reel3 = [3, 2, 3]
-
-    const randomIndex1 = getRandomIndex(reel1)
-    const randomIndex2 = getRandomIndex(reel2)
-    const randomIndex3 = getRandomIndex(reel3)
-
-    const result1 = reel1[randomIndex1]
-    const result2 = reel2[randomIndex2]
-    const result3 = reel3[randomIndex3]
-    return [result1, result2, result3]
+    return ([getRandomIndex(), getRandomIndex(), getRandomIndex()])
   }
 
-  const spinOnClick = () => {
+  const handleSpinOnClick = () => {
     const updatedReels = reelsContainer()
     setReels(updatedReels)
+    checkPayLines(reels)
+    spinOnClick()
+  }
+
+  const checkPayLines = (reels) => {
+    if (reels[0] === reels[1] && reels[1] === reels[2]) {
+      setPayout(bet * 5)
+    } else {
+      setPayout(0)
+    }
   }
 
   return (
     <div className="slot-machine">
       <div id="reels">
-        <div>
-          {reels[0]} - {reels[1]} - {reels[2]}
-        </div>
+        {reels[0]} - {reels[1]} - {reels[2]}
+        <p> Payout: {payout}</p>
+        <button onClick={handleSpinOnClick}>Spin</button>
       </div>
-      <button onClick={spinOnClick}>Spin</button>
-    </div >
+    </div>
   )
 }
 
