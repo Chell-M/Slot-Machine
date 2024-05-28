@@ -1,6 +1,5 @@
-import './App.css';
+import './Components/styles/styles.css';
 import User from './Components/User';
-
 function App() {
 
   return (
